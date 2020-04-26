@@ -1,0 +1,16 @@
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+div {
+	border: 2px solid black;
+	margin: 25px;
+}
+
+#board {
+	width: 90%;
+	background: #dce3e3;
+}
