@@ -6,10 +6,10 @@ const Utils = (function () {
 
 		renderElement({ parent, child }) {
 			if (child instanceof HTMLElement) {
-				parent.appendChild(child);
+				parent.append(child);
 			} else if (typeof child == "string") {
 				child = document.createElement(child);
-				parent.appendChild(child);
+				parent.append(child);
 			} else {
 				throw new TypeError(
 					"The child object must be an HTMLElement or a string"
@@ -24,7 +24,7 @@ const Utils = (function () {
 				if (typeof child == "string") {
 					child = document.createElement(child);
 				}
-				parent.appendChild(child);
+				parent.append(child);
 			});
 
 			return parent;
