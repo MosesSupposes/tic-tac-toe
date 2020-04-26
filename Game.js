@@ -1,7 +1,7 @@
 const Game = (function () {
 	let nextGameId = 0;
-	const player1 = { mark: "X", wins: 0 };
-	const player2 = { mark: "O", wins: 0 };
+	const player1 = { name: "p1", mark: "X", wins: 0 };
+	const player2 = { name: "p2", mark: "O", wins: 0 };
 
 	const createBoard = function () {
 		const board = document.createElement("article");
@@ -43,13 +43,18 @@ const Game = (function () {
 	};
 
 	return {
+		player1,
+		player2,
 		GameSession: class {
+			static allGames = [];
+
 			constructor(board = createBoard()) {
 				this.gameBoard = board;
 				this.gameId = nextGameId;
 				this.player1 = player1;
 				this.player2 = player2;
 				this.currentTurn = player1;
+				this.winner = null;
 			}
 
 			startGame() {
@@ -57,6 +62,12 @@ const Game = (function () {
 					parent: document.querySelector("#games"),
 					child: this.gameBoard,
 				});
+				this.constructor.allGames.push({
+					gameId: this.gameId,
+					gameBoard: this.gameBoard,
+					winner: this.winner,
+				});
+				console.log(this.constructor.allGames);
 			}
 
 			nextTurn() {
@@ -73,7 +84,17 @@ const Game = (function () {
 			}
 
 			gameOver(winner) {
+				this.winner = winner;
 				winner.wins++;
+
+				this.constructor.allGames.map(game => {
+					if (game.gameId === this.gameId) {
+						game.winner = this.winner;
+						return game;
+					} else {
+						return game;
+					}
+				});
 			}
 		},
 	};
