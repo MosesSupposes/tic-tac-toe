@@ -1,7 +1,7 @@
 const Game = (function () {
 	return {
 		createBoard() {
-			const board = document.createElement("div");
+			const board = document.createElement("article");
 			$(board).addClass("board");
 
 			const row1 = Utils.createElements(["div", "div", "div"]).map(
