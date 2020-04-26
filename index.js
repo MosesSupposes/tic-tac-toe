@@ -1,6 +1,4 @@
 $(document).ready(() => {
-	Utils.renderElement({
-		parent: document.querySelector("#games"),
-		child: Game.createBoard(),
-	});
+	const game1 = new Game.GameSession();
+	game1.startGame();
 });
