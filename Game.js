@@ -67,7 +67,6 @@ const Game = (function () {
 					gameBoard: this.gameBoard,
 					winner: this.winner,
 				});
-				console.log(this.constructor.allGames);
 			}
 
 			nextTurn() {
