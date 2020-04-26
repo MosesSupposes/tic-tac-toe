@@ -1,8 +1,11 @@
 const Game = (function () {
+	let nextGameId = 0;
+
 	return {
 		createBoard() {
 			const board = document.createElement("article");
 			$(board).addClass("board");
+			board.dataset.gameId = ++nextGameId;
 
 			const row1 = Utils.createElements(["div", "div", "div"]).map(
 				(div, index) => {
