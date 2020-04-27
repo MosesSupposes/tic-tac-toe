@@ -3,6 +3,17 @@ const Game = (function () {
 	const player1 = { name: "p1", mark: "X", wins: 0 };
 	const player2 = { name: "p2", mark: "O", wins: 0 };
 
+	const winningCombinations = [
+		[1, 2, 3],
+		[1, 4, 7],
+		[1, 5, 9],
+		[2, 5, 8],
+		[4, 5, 6],
+		[7, 8, 9],
+		[3, 5, 7],
+		[3, 6, 9],
+	];
+
 	const createBoard = function () {
 		const board = document.createElement("article");
 		$(board).addClass("board");
@@ -42,6 +53,54 @@ const Game = (function () {
 		return board;
 	};
 
+	const determineIfPlayerWon = gameBoard => {
+		let foundWinningCombination = false;
+		let winner = null;
+		let currentStateOfBoard = [];
+		const $slots = $(gameBoard).find(".slot");
+		$slots.each(function (index, slot) {
+			currentStateOfBoard.push({ index: index + 1, mark: slot.innerHTML });
+		});
+		const allXs = currentStateOfBoard.filter(({ index, mark }) => mark === "X");
+		const allOs = currentStateOfBoard.filter(({ index, mark }) => mark === "O");
+		console.log({ $slots });
+		console.log({ allXs });
+		console.log({ allOs });
+
+		winningCombinations.forEach(combo => {
+			let [firstSlot, secondSlot, thirdSlot] = combo;
+			let slotsForAllXs = allXs.map(x => x.index);
+			let slotsForAllOs = allOs.map(o => o.index);
+			if (
+				slotsForAllXs.includes(firstSlot) &&
+				slotsForAllXs.includes(secondSlot) &&
+				slotsForAllXs.includes(thirdSlot)
+			) {
+				foundWinningCombination = true;
+				winner = player1;
+			} else if (
+				slotsForAllOs.includes(firstSlot) &&
+				slotsForAllOs.includes(secondSlot) &&
+				slotsForAllOs.includes(thirdSlot)
+			) {
+				foundWinningCombination = true;
+				winner = player2;
+			}
+		});
+
+		if (foundWinningCombination) {
+			return {
+				gameWon: true,
+				winner,
+			};
+		} else {
+			return {
+				gameWon: false,
+				winner,
+			};
+		}
+	};
+
 	return {
 		player1,
 		player2,
@@ -76,9 +135,9 @@ const Game = (function () {
 
 			makeMove(slotId) {
 				const slot = $(this.gameBoard).find(`.slot[data-slot-id=${slotId}]`);
-				console.log(slot);
 				slot[0].innerHTML = this.currentTurn.mark;
-				this.nextTurn();
+				const { gameWon, winner } = determineIfPlayerWon(this.gameBoard);
+				gameWon ? this.gameOver(winner) : this.nextTurn();
 			}
 
 			gameOver(winner) {
