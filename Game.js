@@ -94,6 +94,17 @@ const Game = (function () {
 						return game;
 					}
 				});
+
+				const GameOverEvent = new CustomEvent("gameOver", {
+					bubbles: true,
+					cancelable: true,
+					detail: {
+						gameId: this.gameId,
+						winner: this.winner,
+					},
+				});
+
+				this.gameBoard.dispatchEvent(GameOverEvent);
 			}
 		},
 	};
