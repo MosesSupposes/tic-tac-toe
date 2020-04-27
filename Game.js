@@ -63,9 +63,6 @@ const Game = (function () {
 		});
 		const allXs = currentStateOfBoard.filter(({ index, mark }) => mark === "X");
 		const allOs = currentStateOfBoard.filter(({ index, mark }) => mark === "O");
-		console.log({ $slots });
-		console.log({ allXs });
-		console.log({ allOs });
 
 		winningCombinations.forEach(combo => {
 			let [firstSlot, secondSlot, thirdSlot] = combo;
