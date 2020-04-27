@@ -70,15 +70,14 @@ const Game = (function () {
 			}
 
 			nextTurn() {
-				this.currentTurn = this.currentTurn = this.player1
-					? this.player2
-					: this.player1;
+				this.currentTurn =
+					this.currentTurn == this.player1 ? this.player2 : this.player1;
 			}
 
 			makeMove(slotId) {
-				$(this.gameBoard).find(
-					`.slot[data-slot-id=${slotId}]`
-				).innerHTML = this.currentTurn.mark;
+				const slot = $(this.gameBoard).find(`.slot[data-slot-id=${slotId}]`);
+				console.log(slot);
+				slot[0].innerHTML = this.currentTurn.mark;
 				this.nextTurn();
 			}
 
