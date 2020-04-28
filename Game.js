@@ -122,6 +122,7 @@ const Game = (function () {
 					gameId: this.gameId,
 					gameBoard: this.gameBoard,
 					winner: this.winner,
+					gameSession: this,
 				});
 			}
 
