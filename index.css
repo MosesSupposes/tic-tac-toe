@@ -56,9 +56,19 @@ div[data-slot-id="9"] {
 }
 
 #title {
-	margin-bottom: 30px;
+	margin-bottom: 15px;
 }
 
 #names {
 	margin-bottom: 60px;
+}
+
+#score {
+	display: flex;
+	width: 95%;
+	justify-content: space-between;
+}
+
+#score p {
+	display: none;
 }

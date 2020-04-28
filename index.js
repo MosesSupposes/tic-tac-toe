@@ -12,6 +12,13 @@ $(document).ready(() => {
 
 		// render the game board to the screen
 		game1.startGame();
+		// render the win count
+		$("#p1Wins")
+			.text(`${Game.player1.name}: ${Game.player1.wins} wins`)
+			.fadeIn(200);
+		$("#p2Wins")
+			.text(`${Game.player2.name}: ${Game.player2.wins} wins`)
+			.fadeIn(200);
 
 		/*  The following logic reders click handlers for all rendered
 			board games. By the time this code runs, there will only be 
@@ -36,13 +43,18 @@ $(document).ready(() => {
 		});
 	});
 
-	// When a game ends, alert the user with who the winner was and
-	// render a new game board to the screen
-	$(document).on("gameOver", function alertWinnerAndStartNextGame(event) {
+	// When a game ends, alert the user with who the winner was, display
+	// the new score, and render a new game board to the screen
+	$(document).on("gameOver", function alertWinnerAndUpdateScoreAndStartNextGame(
+		event
+	) {
 		alert(`Winner: ${event.detail.winner.name}`);
+
+		$("#p1Wins").text(`${Game.player1.name}: ${Game.player1.wins} wins`);
+		$("#p2Wins").text(`${Game.player2.name}: ${Game.player2.wins} wins`);
+
 		const newGame = new Game.GameSession();
 		newGame.startGame();
-
 		$(`.board[data-game-id=${newGame.gameId}]`).on(
 			"click",
 			function renderMarkToScreen(event) {
