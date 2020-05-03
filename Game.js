@@ -55,6 +55,7 @@ const Game = (function () {
 
 	const determineIfPlayerWon = gameBoard => {
 		let foundWinningCombination = false;
+		let wasADraw = false;
 		let winner = null;
 		let currentStateOfBoard = [];
 		const $slots = $(gameBoard).find(".slot");
@@ -82,10 +83,12 @@ const Game = (function () {
 			) {
 				foundWinningCombination = true;
 				winner = player2;
+			} else if (allXs.length + allOs.length === 9) {
+				wasADraw = true;
 			}
 		});
 
-		if (foundWinningCombination) {
+		if (foundWinningCombination || wasADraw) {
 			return {
 				gameWon: true,
 				winner,
@@ -139,8 +142,10 @@ const Game = (function () {
 			}
 
 			gameOver(winner) {
-				this.winner = winner;
-				winner.wins++;
+				if (winner) {
+					this.winner = winner;
+					winner.wins++;
+				}
 
 				this.constructor.allGames.map(game => {
 					if (game.gameId === this.gameId) {

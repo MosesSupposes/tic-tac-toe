@@ -48,7 +48,9 @@ $(document).ready(() => {
 	$(document).on("gameOver", function alertWinnerAndUpdateScoreAndStartNextGame(
 		event
 	) {
-		alert(`Winner: ${event.detail.winner.name}`);
+		event.detail.winner == null
+			? alert("It was a draw.")
+			: alert(`Winner: ${event.detail.winner.name}`);
 
 		$("#p1Wins").text(`${Game.player1.name}: ${Game.player1.wins} wins`);
 		$("#p2Wins").text(`${Game.player2.name}: ${Game.player2.wins} wins`);
