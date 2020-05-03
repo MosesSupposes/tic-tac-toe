@@ -65,10 +65,10 @@ const Game = (function () {
 		const allXs = currentStateOfBoard.filter(({ index, mark }) => mark === "X");
 		const allOs = currentStateOfBoard.filter(({ index, mark }) => mark === "O");
 
+		let slotsForAllXs = allXs.map(x => x.index);
+		let slotsForAllOs = allOs.map(o => o.index);
 		winningCombinations.forEach(combo => {
 			let [firstSlot, secondSlot, thirdSlot] = combo;
-			let slotsForAllXs = allXs.map(x => x.index);
-			let slotsForAllOs = allOs.map(o => o.index);
 			if (
 				slotsForAllXs.includes(firstSlot) &&
 				slotsForAllXs.includes(secondSlot) &&
