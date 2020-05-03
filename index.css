@@ -61,6 +61,8 @@ div[data-slot-id="9"] {
 
 #names {
 	margin-bottom: 60px;
+	display: flex;
+	justify-content: space-between;
 }
 
 #score {
